@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node --watch dist/server.js"
+  },
+  "type": "module"
+}
