@@ -9,6 +9,9 @@
     "@types/express": "^4.17.21"
   },
   "scripts": {
+    "atlas:restart": "npm run atlas:stop && npm run atlas:start",
+    "atlas:start": "docker run --rm -d --name atlas -p 127.0.0.1:27017:27017 mongodb/mongodb-atlas-local:7",
+    "atlas:stop": "docker stop atlas",
     "build": "tsc",
     "start": "node --watch dist/server.js",
     "test": "node --test",
