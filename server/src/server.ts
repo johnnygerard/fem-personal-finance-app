@@ -5,11 +5,20 @@ import {
   NOT_FOUND,
 } from "./constants/http-status-code.js";
 import { isProduction, port } from "./constants/env.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 // Trust requests from Heroku's load balancer
 app.set("trust proxy", 1);
+
+const middleware = [
+  cookieParser(),
+  // ajv specialized JSON parsers are used instead of `express.json`
+  // If the request has a JSON payload, `express.text` will parse it as a raw string.
+  // @see https://ajv.js.org/guide/getting-started.html#parsing-and-serializing-json
+  express.text({ type: "application/json" }),
+];
 
 // Final catch-all controller
 app.use((req, res) => {
