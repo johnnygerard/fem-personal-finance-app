@@ -4,6 +4,7 @@ import { createJwt, verifyJwt } from "./jwt.js";
 import assert from "node:assert/strict";
 import ms from "ms";
 import { Buffer } from "node:buffer";
+import { JOSEAlgNotAllowed, JWTExpired } from "jose/errors";
 
 /**
  * The pattern for a JWT.
@@ -36,7 +37,7 @@ suite("JWT creation and verification", () => {
     context.mock.timers.tick(ms("1 year"));
     await assert.rejects(async () => {
       await verifyJwt(jwt);
-    });
+    }, JWTExpired);
   });
 
   test("Verification fails if the token has no signature", async () => {
@@ -49,6 +50,6 @@ suite("JWT creation and verification", () => {
 
     await assert.rejects(async () => {
       await verifyJwt(unsignedJwt);
-    });
+    }, JOSEAlgNotAllowed);
   });
 });
