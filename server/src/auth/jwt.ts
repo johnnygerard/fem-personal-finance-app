@@ -1,13 +1,11 @@
-import { isProduction, JWT_SECRET } from "../constants/env.js";
+import { JWT_SECRET } from "../constants/env.js";
 import { jwtVerify, JWTVerifyResult, SignJWT } from "jose";
-import type { CookieOptions } from "express";
-import ms from "ms";
+import { SESSION_TTL } from "../constants/security.js";
 
 const secret = new TextEncoder().encode(JWT_SECRET);
 const ALGORITHM = "HS256";
 const ISSUER = "urn:example:issuer";
 const AUDIENCE = "urn:example:audience";
-const SESSION_TTL = "2 hours";
 
 /**
  * Create a signed JWT.
@@ -38,11 +36,3 @@ export const verifyJwt = async (jwt: string): Promise<JWTVerifyResult> =>
     algorithms: [ALGORITHM],
     requiredClaims: ["sub", "iat", "exp"],
   });
-
-export const jwtCookieOptions: CookieOptions = {
-  httpOnly: true,
-  maxAge: ms(SESSION_TTL),
-  path: "/api/user", // Only send the session cookie to private endpoints
-  sameSite: "strict",
-  secure: isProduction,
-};
