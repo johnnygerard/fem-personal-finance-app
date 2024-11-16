@@ -1,5 +1,5 @@
 import { JWT_SECRET } from "../constants/env.js";
-import { jwtVerify, JWTVerifyResult, SignJWT } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 import { SESSION_TTL } from "../constants/security.js";
 
 const secret = new TextEncoder().encode(JWT_SECRET);
@@ -29,8 +29,14 @@ export const createJwt = async (userId: string): Promise<string> =>
  * @returns The payload and the protected header
  * @see https://github.com/panva/jose/blob/main/docs/jwt/verify/functions/jwtVerify.md
  */
-export const verifyJwt = async (jwt: string): Promise<JWTVerifyResult> =>
-  jwtVerify(jwt, secret, {
+export const verifyJwt = async (jwt: string) =>
+  jwtVerify<{
+    aud: string;
+    exp: number;
+    iat: number;
+    iss: string;
+    sub: string;
+  }>(jwt, secret, {
     issuer: ISSUER,
     audience: AUDIENCE,
     algorithms: [ALGORITHM],
