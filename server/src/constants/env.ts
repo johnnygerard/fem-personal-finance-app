@@ -20,6 +20,7 @@ const getVar = (key: string, fallback: string): string => {
 };
 
 export const ARGON2_SECRET = getVar("ARGON2_SECRET", "argon2-secret");
+export const JWT_SECRET = getVar("JWT_SECRET", "jwt-secret");
 
 export const MONGODB_CONNECTION_URL = getVar(
   "MONGODB_CONNECTION_URL",
