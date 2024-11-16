@@ -6,6 +6,7 @@ import {
 } from "./constants/http-status-code.js";
 import { isProduction, port } from "./constants/env.js";
 import cookieParser from "cookie-parser";
+import publicRouter from "./routes/public.js";
 
 const app = express();
 
@@ -19,6 +20,8 @@ const middleware = [
   // @see https://ajv.js.org/guide/getting-started.html#parsing-and-serializing-json
   express.text({ type: "application/json" }),
 ];
+
+app.use("/api", middleware, publicRouter);
 
 // Final catch-all controller
 app.use((req, res) => {
