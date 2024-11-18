@@ -1,7 +1,5 @@
-export class User {
-  constructor(
-    public name: string,
-    public email: string,
-    public password: string,
-  ) {}
-}
+export type User = {
+  name: string;
+  email: string;
+  password: string;
+};

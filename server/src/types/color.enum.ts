@@ -1,0 +1,17 @@
+export const enum Color {
+  GREEN,
+  YELLOW,
+  CYAN,
+  NAVY,
+  RED,
+  PURPLE,
+  TURQUOISE,
+  BROWN,
+  MAGENTA,
+  BLUE,
+  NAVY_GREY,
+  ARMY_GREEN,
+  PINK,
+  GOLD,
+  ORANGE,
+}
