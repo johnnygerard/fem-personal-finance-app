@@ -8,7 +8,6 @@ import {
 import { users } from "../database/mongo-client.js";
 import { ApiError } from "../types/api-error.enum.js";
 import { parseRegistrationCredentials } from "../validation/ajv/registration-credentials.js";
-import { User } from "../database/models/user.js";
 import { JsonObjectId } from "../types/json-object-id.js";
 import {
   SESSION_COOKIE_NAME,
@@ -39,7 +38,11 @@ export const createAccount: RequestHandler = async (req, res, next) => {
 
     // Create new database user
     const digest = await hashPassword(password);
-    const { insertedId } = await users.insertOne(new User(name, email, digest));
+    const { insertedId } = await users.insertOne({
+      name,
+      email,
+      password: digest,
+    });
 
     // Create new session cookie
     const userId = insertedId.toJSON() as JsonObjectId;
