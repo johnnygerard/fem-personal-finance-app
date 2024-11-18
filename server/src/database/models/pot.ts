@@ -1,8 +1,8 @@
-import { Theme } from "./theme.js";
+import { Color } from "../../types/color.enum.js";
 
 export type Pot = {
   name: string;
   target: number;
-  theme: Theme;
+  theme: Color;
   value: number;
 };
